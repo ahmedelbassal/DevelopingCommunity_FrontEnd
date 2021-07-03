@@ -6,7 +6,10 @@ import { Injectable } from '@angular/core';
 })
 export class ProjectsService {
 
-  private baseUrl = 'https://localhost:44347/api/Projects';
+  // private baseUrl = 'https://localhost:44347/api/Projects';
+
+  baseUrl:string=process.env.backendUrl+"/api/Projects"
+
 
   constructor(private httpClient:HttpClient) { }
 

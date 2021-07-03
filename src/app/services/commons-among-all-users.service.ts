@@ -8,9 +8,9 @@ export class CommonsAmongAllUsersService {
 
   constructor(private userClient: HttpClient) { }
 
-  baseUrl: string = "https://localhost:44347/api/"
+  // baseUrl: string = "https://localhost:44347/api/"
 
-  // baseUrl:string=process.env.backendUrl+"/api/"
+  baseUrl:string=process.env.backendUrl+"/api/"
 
 
 
