@@ -1,0 +1,191 @@
+
+<div class="curved-div mt-5">
+  <h2>
+    Registeration 
+  </h2>
+  <hr />
+  <svg viewBox="0 0 1440 500">
+    <path
+      fill="#506a91"
+      fill-opacity="1"
+      d="M 0 0 L 1666.87 -3.605 L 378.019 383.162 C 351.073 390.61 81.358 508.952 1.004 327.428 Z"
+    ></path>
+  </svg>
+  <img
+    class="firstChar"
+    src="assets/images/6.svg"
+    width="100px"
+    height="100px"
+  />
+  <img
+    class="SecondChar"
+    src="assets/images/7.svg"
+    width="100px"
+    height="100px"
+  />
+</div>
+
+<form [formGroup]="registerForm" class="w-100 container formStyle">
+
+  <h2 class="txtDesign" >
+    Sign Up
+</h2>
+<h4 class="txtDesign" style="font-weight: lighter;text-decoration: underline;">
+  Be a member of out Community
+</h4>
+    <div *ngFor="let item of StringInputNameValidation" class="row">
+
+        <app-form-input-string
+        [FormOfInput]=registerForm
+        [name]=item.name
+        [maxLength]=item.maxLength
+        [minLength]=item.minLength
+        [IsRequired]=item.IsRequired
+        [clickedBefore]="clicked"
+        ></app-form-input-string>  
+    </div>
+
+    <div *ngFor="let item of PasswordInputNameValidation" class="row">
+    
+      <app-input-password
+      [FormOfInput]=registerForm
+      [name]=item.name
+      [maxLength]=item.maxLength
+      [minLength]=item.minLength
+      [IsRequired]=item.IsRequired
+      
+      [clickedBefore]="clicked"
+      >
+         
+          
+      </app-input-password>
+  </div>
+
+  <div class="row" style="text-align: center;" *ngIf="passwordMatch==false">
+
+    <span style="padding: 10px;" class="txtDesign text-danger" >
+      Password and confirmation password don't match
+    </span>
+</div>
+
+  
+    <div *ngFor="let item of NumerInputNameValidation" class="row">
+
+        
+      <app-form-input-number 
+      [FormOfInput]=registerForm
+      [name]=item.name
+      [max]=item.max
+      [min]=item.min
+      [IsRequired]=item.IsRequired
+      [clickedBefore]="clicked"
+      ></app-form-input-number>  
+  </div>
+
+  <div class="row">
+    <app-email-input 
+      [FormOfInput]=registerForm
+      name="Email"
+    >  [clickedBefore]="clicked"
+    </app-email-input>
+  </div>
+  <div class="row">
+    <app-phone-input
+      [FormOfInput]=registerForm
+      name="Phone"
+      [clickedBefore]="clicked"
+    >
+      
+    </app-phone-input>
+  </div>
+
+  <div *ngIf="departmentsOptions!=null" class="row">
+      <app-input-select
+            name="Department"
+            [options]=departmentsOptions
+            [FormOfInput]=registerForm
+            controllerName=depertId
+            
+      >
+
+      </app-input-select>
+  </div>
+
+
+  <div class="row">
+    <app-input-select
+          name="UserType"
+          [options]=UserTypeOptions
+          [FormOfInput]=registerForm
+          controllerName=UserType
+    >
+
+    </app-input-select>
+</div>
+
+<div class="my-3 d-flex justify-content-center ">
+  <input  type="button" (click)="submitForm()" class="btn btn-outline-primary" value="Register" style="border-radius: 20px;">
+</div>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <form
+            class="form"
+            method="post"
+         
+        
+            #registerUser
+          >
+            <div class="form-group">
+              <input
+                class="input form-control"
+                type="text"
+                name="name"
+                autocomplete="off"
+                placeholder="User Name"
+                #username
+                id="username"
+                formControlName="username"
+              /><br />
+              <div class="text-danger" *ngIf="userNameExists">
+                Username already exists. choose another one
+              </div>
+              <div name="validations" *ngIf="registerForm.invalid">
+                <span
+                  class="text-danger"
+                  *ngIf="
+                    firstClick &&
+                    registerForm.controls.username.errors?.required
+                  "
+                  >Username is required</span
+                >
+                <span
+                  class="text-danger"
+                  *ngIf="registerForm.controls.username.errors?.maxlength"
+                  >username characters exceeded maximum length of 20</span
+                >
+                <span
+                  class="text-danger"
+                  *ngIf="registerForm.controls.username.errors?.minlength"
+                  >username characters are less than 5 characters</span
+                >
+              </div>
+            </div>
+            span class="login_error" id="name_error"></span -->
+

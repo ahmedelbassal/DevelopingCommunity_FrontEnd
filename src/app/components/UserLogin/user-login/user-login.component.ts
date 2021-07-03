@@ -1,0 +1,87 @@
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, MaxLengthValidator, MinLengthValidator, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CommonsAmongAllUsersService } from 'src/app/services/commons-among-all-users.service';
+import { UserService } from 'src/app/services/user.service';
+
+@Component({
+  selector: 'app-user-login',
+  templateUrl: './user-login.component.html',
+  styleUrls: ['./user-login.component.css']
+})
+export class UserLoginComponent implements OnInit {
+
+  constructor(private userService:CommonsAmongAllUsersService,private router:Router) { }
+
+  ngOnInit(): void {
+
+    for(let item of this.StringInputNameValidation){
+      this.loginForm.registerControl(item.name,new FormControl("",[item.IsRequired?Validators.required:Validators.nullValidator,Validators.maxLength(item.maxLength),Validators.minLength(item.minLength)]))
+    }
+
+    this.loginForm.registerControl("UserType",new FormControl("",Validators.nullValidator))
+
+  }
+
+
+  subscriber:any;
+
+  StringInputNameValidation:Array<{name:string,IsRequired:boolean,maxLength:number,minLength:number}>=[
+    {name:"UserName",maxLength:25,minLength:5,IsRequired:true},
+    {name:"Password",maxLength:30,minLength:7,IsRequired:true},
+  
+  ]
+
+ 
+  loginForm = new FormGroup({
+  })
+
+
+  UserTypeOptions:Array<{DisplayMember:string,valueMember:any}>=[
+    {DisplayMember:"instructor",valueMember:"instructor"},
+    {DisplayMember:"student",valueMember:"student"},
+    {DisplayMember:"individual",valueMember:"individual"},
+  ]
+  
+
+
+  submitForm(){
+
+    let UserName=this.loginForm.get("UserName")?.value;
+    let Password=this.loginForm.get("Password")?.value;
+
+  
+    let loginDetails={
+     UserName,Password
+    }
+
+  //  console.log(registerDetails)
+
+  let userType=this.loginForm.get("UserType")?.value;
+
+    this.subscriber=this.userService.Login(loginDetails,userType).subscribe(
+
+      (data:any)=>{
+        console.log(data)
+
+        localStorage.setItem("devCommunityToken",data?.token)
+
+        localStorage.setItem("devCommunityUserType",data?.userType)
+
+        this.router.navigateByUrl("").then(
+          ()=>{
+            location.reload();
+          }
+        )
+
+      },
+      (err)=>{
+        console.log(err.message)
+      },
+      ()=>{
+        this.subscriber.unsubscribe();
+      }
+    )
+  }
+
+}

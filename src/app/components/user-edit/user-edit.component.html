@@ -1,0 +1,104 @@
+<div class="curved-div mt-5">
+  <h2>
+    Edit user 
+  </h2>
+  <hr />
+  <svg viewBox="0 0 1440 500">
+    <path
+      fill="#506a91"
+      fill-opacity="1"
+      d="M 0 0 L 1666.87 -3.605 L 378.019 383.162 C 351.073 390.61 81.358 508.952 1.004 327.428 Z"
+    ></path>
+  </svg>
+  <img
+    class="firstChar"
+    src="assets/images/6.svg"
+    width="100px"
+    height="100px"
+  />
+  <img
+    class="SecondChar"
+    src="assets/images/7.svg"
+    width="100px"
+    height="100px"
+  />
+</div>
+
+<form [formGroup]="registerForm" class="w-100 container formStyle">
+
+  <h2 class="txtDesign d-flex justify-content-center">
+    Edit my details
+</h2>
+
+
+    <div *ngFor="let item of StringInputNameValidation" class="row">
+
+        <span class="txtDesign" style="font-weight: lighter;">{{item.name}}</span>
+        <app-form-input-string 
+        [FormOfInput]=registerForm
+        [name]=item.name
+        [maxLength]=item.maxLength
+        [minLength]=item.minLength
+        [IsRequired]=item.IsRequired
+    
+        ></app-form-input-string>  
+    </div>
+  
+    <div *ngFor="let item of NumerInputNameValidation" class="row">
+
+      <span class="txtDesign" style="font-weight: lighter;">{{item.name}}</span>
+        
+      <app-form-input-number 
+      [FormOfInput]=registerForm
+      [name]=item.name
+      [max]=item.max
+      [min]=item.min
+      [IsRequired]=item.IsRequired
+  
+      ></app-form-input-number>  
+  </div>
+
+  <div class="row">
+    <span class="txtDesign" style="font-weight: lighter;">Email</span>
+
+    <app-email-input 
+      [FormOfInput]=registerForm
+      name="Email"
+    > 
+    </app-email-input>
+  </div>
+
+  <div>
+    <span class="txtDesign" style="font-weight: lighter;">Phone</span>
+
+    <app-phone-input class="row"
+      [FormOfInput]=registerForm
+      name="Phone"
+    >
+      
+    </app-phone-input>
+  </div>
+
+  <div *ngIf="departmentsOptions!=null" class="row">
+
+
+      <app-input-select
+            name="Department"
+            [options]=departmentsOptions
+            [FormOfInput]=registerForm
+            controllerName=depertId
+      >
+
+      </app-input-select>
+  </div>
+
+
+  <div class="my-3 d-flex justify-content-center">
+  
+    <input  type="button" (click)="submitForm()" class="btn btn-outline-primary" value="Confirm" style="border-radius: 20px;">
+  </div>
+
+</form>
+
+
+
