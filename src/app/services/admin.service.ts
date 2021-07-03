@@ -10,7 +10,8 @@ export class AdminService {
 
   // baseUrl: string = "https://localhost:44347/api/admins/"
 
-  baseUrl:string=process.env.backendUrl+"/api/admins/"
+  // baseUrl:string=process.env.backendUrl+"/api/admins/"
+  baseUrl:string="http://team1project-001-site1.htempurl.com"+"/api/admins/"
 
 
   Login(LoginDetails: any) {
